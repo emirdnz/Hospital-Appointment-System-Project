@@ -9,14 +9,15 @@ namespace Hospital_Appointment.Entities.Concrete
 {
     public class Room : BaseEntity
     {
-        public required string RoomNumber { get; set; }
+      public string RoomNumber { get; set; }
+        public string RoomType { get; set; } // ICU, General, Private
+        public string Status { get; set; } // Available, Occupied, Under Maintenance
 
-        public required string RoomType { get; set; } // e.g., "ICU", "General", "Private"
+        public int HospitalId { get; set; }
+        public virtual Hospital Hospital { get; set; }
 
-        public required string Status { get; set; } // e.g., "Available", "Occupied", "Under Maintenance"
+        public string HospitalBlok { get; set; }
 
-        public required string HospitalId { get; set; } // Foreign key to Hospital
-
-        public required string HospitalBlok { get; set; } // e.g., "A", "B", "C" 
+        public virtual ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
     }
 }

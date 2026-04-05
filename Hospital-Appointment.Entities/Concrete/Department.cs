@@ -9,16 +9,15 @@ namespace Hospital_Appointment.Entities.Concrete
 {
     public class Department : BaseEntity
     {
-        public required string Name { get; set; }
-        public required string Description { get; set; }
+       public string Name { get; set; }
+        public string Description { get; set; }
         public string? ImageUrl { get; set; }
-        public required bool IsActive { get; set; } = true;
-        public required DateTime CreatedDate { get; set; } = DateTime.Now;
-        public required DateTime UpdatedDate { get; set; } = DateTime.Now;
-        
-        // Navigation properties
+
+        public int HospitalId { get; set; }
+        public virtual Hospital Hospital { get; set; }
+
         public virtual ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
-        public virtual ICollection<Hospital> Hospitals { get; set; } = new List<Hospital>();
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
 
 

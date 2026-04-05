@@ -9,17 +9,17 @@ namespace Hospital_Appointment.Entities.Concrete
 {
     public class Doctor : BaseEntity
     {
-        public required string DoctorName { get; set; }
-
-        public required string Surname { get; set; }
-
-        public required string Specialization /*(uzmanlik alani) */ { get; set; }
-
+       public string DoctorName { get; set; }
+        public string DoctorSurname { get; set; }
+        public string Specialization { get; set; }
         public string? PhoneNumber { get; set; }
-
         public string? Email { get; set; }
 
-        IList<Room>? Rooms { get; set; } = new List<Room>();
+        public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
+
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
 
     }
 }

@@ -9,16 +9,13 @@ namespace Hospital_Appointment.Entities.Concrete
 {
     public class Patient : BaseEntity
     {
-        public required string FirstName { get; set; }
+         public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string? Address { get; set; }
 
-        public required string LastName { get; set; }
-
-        public required string Email { get; set; }
-
-        public required string PhoneNumber { get; set; }
-
-        public required DateTime DateOfBirth { get; set; }
-
-        IList<Appointment> Appointments { get; set; } = new List<Appointment>();
+        public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

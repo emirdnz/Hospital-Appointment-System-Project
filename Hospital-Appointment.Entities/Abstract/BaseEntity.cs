@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hospital_Appointment.Entities.Abstract
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
-        public string id { get; set; } = Guid.NewGuid().ToString();
-
-        public DateTime createdTime { get; set; } = DateTime.UtcNow;
-
+        public int Id { get; set; }
+        public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
+        public bool IsActive { get; set; } = true;
     }
 }

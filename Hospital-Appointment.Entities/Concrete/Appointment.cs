@@ -9,22 +9,19 @@ namespace Hospital_Appointment.Entities.Concrete
 {
     public class Appointment : BaseEntity
     {
-      IList<Patient> Patients { get; set; } = new List<Patient>();
-        
-        IList<Doctor> Doctors { get; set; } = new List<Doctor>();
-     
-        IList<Department> Departments { get; set; } = new List<Department>();
-        
-        public required DateTime AppointmentDate { get; set; }
-        
+        public int PatientId { get; set; }
+        public virtual Patient Patient { get; set; }
+
+        public int DoctorId { get; set; }
+        public virtual Doctor Doctor { get; set; }
+
+        public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
+
+        public DateTime AppointmentDate { get; set; }
         public string? Description { get; set; }
-
-        public required string Status { get; set; } // e.g., Scheduled, Completed, Cancelled
-
-        public required string Location { get; set; } // e.g., Hospital, Clinic, Online
-
-        public required string AppointmentType { get; set; } // e.g., In-person, Telehealth
-
-
+        public string Status { get; set; }
+        public string Location { get; set; }
+        public string AppointmentType { get; set; }
     }
 }
