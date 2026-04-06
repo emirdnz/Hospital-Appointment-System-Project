@@ -45,7 +45,8 @@ namespace Hospital_Appointment.DataAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var appointment = await GetByIdAsync(id);
+            var appointment = await _context.Appointments
+                .FirstOrDefaultAsync(a => a.Id == id);
             if (appointment != null)
             {
                 _context.Appointments.Remove(appointment);

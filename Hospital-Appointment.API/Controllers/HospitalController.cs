@@ -33,15 +33,40 @@ namespace Hospital_Appointment.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Hospital hospital)
         {
+            // Validate input
+            if (string.IsNullOrWhiteSpace(hospital.HospitalName) || string.IsNullOrWhiteSpace(hospital.HospitalBlok))
+                return BadRequest("HospitalName and HospitalBlok are required.");
+            if (string.IsNullOrWhiteSpace(hospital.Email) || string.IsNullOrWhiteSpace(hospital.PhoneNumber))
+                return BadRequest("Email and PhoneNumber are required.");
+            if (string.IsNullOrWhiteSpace(hospital.Address))
+                return BadRequest("Address is required.");
+
             await _repository.AddAsync(hospital);
             return Ok(hospital);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(Hospital hospital)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] Hospital dto)
         {
-            await _repository.UpdateAsync(hospital);
-            return Ok(hospital);
+            // Validate input
+            if (string.IsNullOrWhiteSpace(dto.HospitalName) || string.IsNullOrWhiteSpace(dto.HospitalBlok))
+                return BadRequest("HospitalName and HospitalBlok are required.");
+            if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.PhoneNumber))
+                return BadRequest("Email and PhoneNumber are required.");
+            if (string.IsNullOrWhiteSpace(dto.Address))
+                return BadRequest("Address is required.");
+
+            var existing = await _repository.GetByIdAsync(id);
+            if (existing == null) return NotFound();
+
+            existing.HospitalName = dto.HospitalName;
+            existing.HospitalBlok = dto.HospitalBlok;
+            existing.Address = dto.Address;
+            existing.PhoneNumber = dto.PhoneNumber;
+            existing.Email = dto.Email;
+
+            await _repository.UpdateAsync(existing);
+            return Ok(existing);
         }
 
         [HttpDelete("{id}")]

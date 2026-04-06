@@ -17,7 +17,6 @@ namespace Hospital_Appointment.DataAccess.Repositories
         {
             return await _context.Departments
                 .Include(d => d.Hospital)
-                .Include(d => d.Doctors)
                 .ToListAsync();
         }
 
@@ -25,7 +24,6 @@ namespace Hospital_Appointment.DataAccess.Repositories
         {
             return await _context.Departments
                 .Include(d => d.Hospital)
-                .Include(d => d.Doctors)
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
 
@@ -43,7 +41,8 @@ namespace Hospital_Appointment.DataAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var department = await GetByIdAsync(id);
+            var department = await _context.Departments
+                .FirstOrDefaultAsync(d => d.Id == id);
             if (department != null)
             {
                 _context.Departments.Remove(department);

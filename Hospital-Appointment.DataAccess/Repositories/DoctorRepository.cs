@@ -17,7 +17,6 @@ namespace Hospital_Appointment.DataAccess.Repositories
         {
             return await _context.Doctors
                 .Include(d => d.Department)
-                .Include(d => d.Rooms)
                 .ToListAsync();
         }
 
@@ -25,7 +24,6 @@ namespace Hospital_Appointment.DataAccess.Repositories
         {
             return await _context.Doctors
                 .Include(d => d.Department)
-                .Include(d => d.Rooms)
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
 

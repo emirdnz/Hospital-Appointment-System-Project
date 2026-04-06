@@ -14,18 +14,16 @@ namespace Hospital_Appointment.DataAccess.Repositories
         }
 
         public async Task<List<Patient>> GetAllAsync()
-        {
-            return await _context.Patients
-                .Include(p => p.Appointments)
-                .ToListAsync();
-        }
+{
+    return await _context.Patients
+        .ToListAsync();
+}
 
-        public async Task<Patient?> GetByIdAsync(int id)
-        {
-            return await _context.Patients
-                .Include(p => p.Appointments)
-                .FirstOrDefaultAsync(p => p.Id == id);
-        }
+public async Task<Patient?> GetByIdAsync(int id)
+{
+    return await _context.Patients
+        .FirstOrDefaultAsync(p => p.Id == id);
+}
 
         public async Task AddAsync(Patient patient)
         {

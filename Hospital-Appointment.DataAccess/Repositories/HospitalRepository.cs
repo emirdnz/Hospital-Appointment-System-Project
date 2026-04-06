@@ -15,17 +15,12 @@ namespace Hospital_Appointment.DataAccess.Repositories
 
         public async Task<List<Hospital>> GetAllAsync()
         {
-            return await _context.Hospitals
-                .Include(h => h.Departments)
-                .Include(h => h.Rooms)
-                .ToListAsync();
+            return await _context.Hospitals.ToListAsync();
         }
 
         public async Task<Hospital?> GetByIdAsync(int id)
         {
             return await _context.Hospitals
-                .Include(h => h.Departments)
-                .Include(h => h.Rooms)
                 .FirstOrDefaultAsync(h => h.Id == id);
         }
 
@@ -43,7 +38,8 @@ namespace Hospital_Appointment.DataAccess.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var hospital = await GetByIdAsync(id);
+            var hospital = await _context.Hospitals
+                .FirstOrDefaultAsync(h => h.Id == id);
             if (hospital != null)
             {
                 _context.Hospitals.Remove(hospital);
